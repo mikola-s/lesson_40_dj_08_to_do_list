@@ -11,12 +11,14 @@
 </head>
 <body>
 
+{% include 'todo/navbar.html' %}
+
 {% block content %}
 
 {% endblock content %}
 
-<script src="{% static 'js/jquery_3.3.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
-
+<script src="{% static 'js/navbar.js' %}"></script>
 </body>
 </html>
