@@ -4,6 +4,37 @@
 
     {% if user.is_authenticated %}
 
+            <h2>You notes</h2>
+
+
+            <table>
+                <tr>
+                    <th>time of creation</th>
+                    <th>Text</th>
+                    <th>Type</th>
+                    <th>Type</th>
+                </tr>
+
+                {% for note in notes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'zoo:animal_detail' animal.pk %}">{{ animal.name }}</a></td>
+                        <td>{{ animal.animal_type }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>no animals</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+
+
+
+            {% for note in notes %}
+                {{ note }}<br>
+            {% endfor notes %}
 
     {% else %}
 

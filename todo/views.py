@@ -1,14 +1,24 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, TemplateView, LogoutView
+from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from . import models
 
 
 # Create your views here.
 
-class Index(TemplateView):
+class Index(ListView):
     template_name = 'todo/index.html'
+    http_method_names = ['get', 'post']
+    model = models.Note
+    context_object_name = 'notes'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(author_id=self.request.user.pk)
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
