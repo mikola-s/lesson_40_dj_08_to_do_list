@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, TemplateView, LogoutView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.template.defaulttags import lorem
 
@@ -60,3 +60,9 @@ class Login(LoginView):
 class Logout(LogoutView):
     template_name = 'todo/logout.html'
     next_page = '/'
+
+
+class DeleteNote(DeleteView):
+    model = models.Note
+    template_name = 'todo/delete_note.html'
+    success_url = '/'

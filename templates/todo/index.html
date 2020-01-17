@@ -29,7 +29,14 @@
                     <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
                     <td>{{ note.text }}</td>
                     <td>S</td>
-                    <td>D</td>
+                    <td>
+                        <form action="{% url 'todo:delete_note' note.pk %}" method="post" class="text-center">
+                            {% csrf_token %}
+                            </div>
+                                <button type="submit" class="btn btn-warning">X</button>
+                            </div>
+                        </form>
+                    </td>
                 </tr>
 
             {% empty %}
@@ -40,6 +47,7 @@
 
         </table>
 
+        {# форма создания заметки #}
         <form action="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
             {% csrf_token %}
 
