@@ -1,5 +1,7 @@
 {% extends 'todo/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
     {% if user.is_authenticated %}
@@ -48,5 +50,14 @@
         </p>
 
     {% endif %}
+
+    <form href="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">New</button>
+        </div>
+        {% csrf_token %}
+{#        <textarea type="text">{% lorem 20 w random %}</textarea>#}
+        {{ create_note_form|crispy }}
+    </form>
 
 {% endblock content %}

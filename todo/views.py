@@ -4,7 +4,10 @@ from django.contrib.auth.views import LoginView, TemplateView, LogoutView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse, reverse_lazy
+
 from . import models
+from . import forms
 
 
 # Create your views here.
@@ -20,8 +23,9 @@ class Index(ListView):
         qs = qs.filter(author_id=self.request.user.pk).order_by('-post_time')
         return qs
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context.update({'create_note_form': forms.CreateNoteForm})
         return context
 
 
@@ -39,17 +43,22 @@ class CreateUser(CreateView):
         return data
 
 
-class Login(LoginView):
-    template_name = 'todo/login.html'
+class CreateNote(CreateView):
+    template_name = 'todo/create_note.html'
+    form_class = forms.CreateNoteForm
     success_url = '/'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
-    # def form_valid(self, form):
-    #     login(self.request, form.get_user())
-    #     return super().form_valid(form)
+
+class Login(LoginView):
+    template_name = 'todo/login.html'
+    success_url = '/'
 
 
 class Logout(LogoutView):
