@@ -22,8 +22,8 @@
             <tbody>
 
             {% for note in notes %}
-{#                <tr id="clickable-row">#}
-{#                    <td scope="row">{{ note.post_time }}</td>#}
+                {#                <tr id="clickable-row">#}
+                {#                    <td scope="row">{{ note.post_time }}</td>#}
 
                 <tr>
                     <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
@@ -40,24 +40,34 @@
 
         </table>
 
-    {% else %}
+        <form action="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
+            {% csrf_token %}
 
+            <input hidden name="author" class="text" required="" id="id_author" value="{{ user.pk }}">
+
+            <div id="div_id_text" class="form-group">
+                <label for="id_text" class="requiredField">
+                    Add new note<span class="asteriskField">*</span>
+                </label>
+                <div class="row">
+                    <div class="col">
+                <textarea name="text" rows="1" maxlength="200"
+                          class="textarea form-control" required=""
+                          id="id_text">{% lorem 10 w random %}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">New note</button>
+                </div>
+            </div>
+        </form>
+
+    {% else %}
         <p class="text-center my-auto">
             <a href="{% url 'todo:create' %}">register</a>
             or
             <a href="{% url 'todo:login' %}">login</a>
             to see the contents
         </p>
-
     {% endif %}
 
-    <form href="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
-        <div class="text-right">
-            <button type="submit" class="btn btn-primary">New</button>
-        </div>
-        {% csrf_token %}
-{#        <textarea type="text">{% lorem 20 w random %}</textarea>#}
-        {{ create_note_form|crispy }}
-    </form>
 
 {% endblock content %}
