@@ -4,37 +4,39 @@
 
     {% if user.is_authenticated %}
 
-            <h2>You notes</h2>
+        <h2>You notes</h2>
 
-
-            <table>
-                <tr>
-                    <th>time of creation</th>
-                    <th>Text</th>
-                    <th>Type</th>
-                    <th>Type</th>
-                </tr>
-
-                {% for note in notes %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td><a href="{% url 'zoo:animal_detail' animal.pk %}">{{ animal.name }}</a></td>
-                        <td>{{ animal.animal_type }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>no animals</td>
-                    </tr>
-                {% endfor %}
-
-            </table>
-
-
-
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">time of creation</th>
+                <th scope="col">Text</th>
+                <th scope="col">Share</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            {#<a href="{% url 'student_detail' %}" class="stretched-link">1</#}
+            {#<a href="{% url 'zoo:animal_detail' animal.pk %}">#}
+            <tbody>
 
             {% for note in notes %}
-                {{ note }}<br>
-            {% endfor notes %}
+{#                <tr id="clickable-row">#}
+{#                    <td scope="row">{{ note.post_time }}</td>#}
+
+                <tr>
+                    <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
+                    <td>{{ note.text }}</td>
+                    <td>S</td>
+                    <td>D</td>
+                </tr>
+
+            {% empty %}
+                <tr>
+                    <td>no one note</td>
+                </tr>
+            {% endfor %}
+
+        </table>
 
     {% else %}
 

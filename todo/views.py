@@ -17,7 +17,7 @@ class Index(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(author_id=self.request.user.pk)
+        qs = qs.filter(author_id=self.request.user.pk).order_by('-post_time')
         return qs
 
     def get_context_data(self, **kwargs):
