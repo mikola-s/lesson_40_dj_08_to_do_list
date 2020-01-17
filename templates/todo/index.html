@@ -2,6 +2,18 @@
 
 {% block content %}
 
+    {% if user.is_authenticated %}
 
-    {{ user }}
+
+    {% else %}
+
+        <p class="text-center my-auto">
+            <a href="{% url 'todo:create' %}">register</a>
+            or
+            <a href="{% url 'todo:login' %}">login</a>
+            to see the contents
+        </p>
+
+    {% endif %}
+
 {% endblock content %}

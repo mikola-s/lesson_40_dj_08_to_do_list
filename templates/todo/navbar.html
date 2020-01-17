@@ -1,8 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-expand navbar-light bg-light">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" href="{% url 'todo:index' %}">Home</a>
-        <a class="nav-item nav-link" href="{% url 'todo:create' %}">Register</a>
-        <a class="nav-item nav-link" href="{% url 'todo:login' %}">Login</a>
-        <a class="nav-item nav-link" href="{% url 'todo:logout' %}">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-expand navbar-light bg-light ">
+    <div class="collapse navbar-collapse">
+
+        <ul class="navbar-nav pl-0 mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'todo:index' %}">Home</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav pl-0 pb-0 mt-2" style="height: 50px">
+            {% if not user.is_authenticated %}
+
+                <p class="navbar-text mx-2" id="nav-text">Hello Guest</p>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'todo:create' %}">Register</a>
+                </li>
+                <p class="navbar-text mx-2"> or </p>
+                <li class="nav-item" >
+                    <a class="nav-link" href="{% url 'todo:login' %}">Login</a>
+                </li>
+
+            {% else %}
+
+                <p class="nav-item nav-link">
+                    Hello {{ user }}
+                </p>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'todo:logout' %}">Logout</a>
+                </li>
+
+            {% endif %}
+        </ul>
+
+
     </div>
 </nav>
