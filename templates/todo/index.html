@@ -1,0 +1,15 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-lg navbar-expand navbar-light bg-light">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'todo:index' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'todo:create' %}">Register</a>
+            <a class="nav-item nav-link" href="{% url 'todo:login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'todo:logout' %}">Logout</a>
+        </div>
+    </nav>
+
+    {{ user }}
+{% endblock content %}
