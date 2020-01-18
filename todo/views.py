@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView, TemplateView, LogoutView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
-from django.template.defaulttags import lorem
+from django.views.generic import FormView
 
 from . import models
 from . import forms
@@ -18,15 +18,18 @@ class Index(ListView):
     model = models.Note
     context_object_name = 'notes'
     paginate_by = 10
+    ordering = '-post_time'
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(author_id=self.request.user.pk).order_by('-post_time')
+        qs = qs.filter(author_id=self.request.user.pk)
         return qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context.update({'create_note_form': forms.CreateNoteForm})
+        context.update({'create_note_form': forms.NoteForm,
+                        'search_note_form': forms.NoteForm,
+                        })
         return context
 
 
@@ -46,7 +49,7 @@ class CreateUser(CreateView):
 
 class CreateNote(CreateView):
     template_name = 'todo/create_note.html'
-    form_class = forms.CreateNoteForm
+    form_class = forms.NoteForm
     success_url = '/'
 
     def form_valid(self, form):
@@ -69,3 +72,9 @@ class DeleteNote(DeleteView):
     model = models.Note
     template_name = 'todo/delete_note.html'
     success_url = '/'
+
+
+class SearchNote(FormView):
+    form_class = forms.Note
+    http_method_names = ['get']
+    template_name = 'todo/index.html'
