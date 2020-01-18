@@ -25,10 +25,13 @@
                 {#                <tr id="clickable-row">#}
                 {#                    <td scope="row">{{ note.post_time }}</td>#}
 
+
                 <tr>
                     <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
                     <td>{{ note.text }}</td>
                     <td>S</td>
+
+                    {# ---------- форма удаления ------------------ #}
                     <td>
                         <form action="{% url 'todo:delete_note' note.pk %}" method="post" class="text-center">
                             {% csrf_token %}
@@ -47,12 +50,9 @@
 
         </table>
 
-        {# форма создания заметки #}
+        {# -------- форма создания заметки --------- #}
         <form action="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
             {% csrf_token %}
-
-            <input hidden name="author" class="text" required="" id="id_author" value="{{ user.pk }}">
-
             <div id="div_id_text" class="form-group">
                 <label for="id_text" class="requiredField">
                     Add new note<span class="asteriskField">*</span>

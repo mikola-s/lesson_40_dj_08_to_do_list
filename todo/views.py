@@ -17,6 +17,7 @@ class Index(ListView):
     http_method_names = ['get', 'post']
     model = models.Note
     context_object_name = 'notes'
+    paginate_by = 10
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -25,7 +26,7 @@ class Index(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context.update({'create_note_form': forms.CreateNoteForm(initial={'author': self.request.user.pk})})
+        context.update({'create_note_form': forms.CreateNoteForm})
         return context
 
 
@@ -49,6 +50,8 @@ class CreateNote(CreateView):
     success_url = '/'
 
     def form_valid(self, form):
+        form_with_user_pk = form.save(commit=False)
+        form_with_user_pk.author_id = self.request.user.pk
         return super().form_valid(form)
 
 
