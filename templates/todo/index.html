@@ -30,26 +30,18 @@
                     <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
                     <td>{{ note.text }}</td>
                     <td>S</td>
-
-                    {# ---------- форма удаления ------------------ #}
                     <td>
-                        <form action="{% url 'todo:delete_note' note.pk %}" method="post" class="text-center">
-                            {% csrf_token %}
-                            </div>
-                                <button type="submit" class="btn btn-warning">X</button>
-                            </div>
-                        </form>
+                        {# ---------- форма удаления заметки ------------------ #}
+                        {% include 'todo/delete_note_form.html' %}
                     </td>
                 </tr>
 
             {% empty %}
-                <tr>
-                    <td>no one note</td>
-                </tr>
+                <tr><td>no one note</td></tr>
             {% endfor %}
-
         </table>
 
+        {#----------- форма создания заметки ---------------- #}
         {% include 'todo/create_note_form.html' %}
 
     {% else %}
