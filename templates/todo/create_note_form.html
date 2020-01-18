@@ -1,0 +1,17 @@
+{# -------- форма создания заметки --------- #}
+<form action="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
+    {% csrf_token %}
+    <div id="div_id_text" class="form-group">
+        <label for="id_text" class="requiredField">
+            Add new note<span class="asteriskField">*</span>
+        </label>
+        <div class="row">
+            <div class="col">
+                <textarea name="text" rows="1" maxlength="200"
+                          class="textarea form-control" required=""
+                          id="id_text">{% lorem 10 w random %}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">New note</button>
+        </div>
+    </div>
+</form>
