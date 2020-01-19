@@ -23,17 +23,12 @@
 
                 {% include 'todo/search_note_form.html' %}
 
-                <p class="nav-item nav-link">
-                    Hello {{ user }}
-                </p>
-
+                <p class="nav-item nav-link">Hello {{ user }}</p>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'todo:logout' %}">Logout</a>
                 </li>
 
             {% endif %}
         </ul>
-
-
     </div>
 </nav>

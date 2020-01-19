@@ -23,12 +23,15 @@ class Index(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(author_id=self.request.user.pk)
+        search = self.request.GET.get('search')
+        qs = qs.filter(text__contains=search) if search else qs
         return qs
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context.update({'create_note_form': forms.NoteForm,
-                        'search_note_form': forms.NoteForm,
+
+        context.update({'create_note_form': forms.CreateNoteForm,
+                        'search_note_form': forms.SearchNoteForm(self.request.GET),
                         })
         return context
 
@@ -49,7 +52,7 @@ class CreateUser(CreateView):
 
 class CreateNote(CreateView):
     template_name = 'todo/create_note.html'
-    form_class = forms.NoteForm
+    form_class = forms.CreateNoteForm
     success_url = '/'
 
     def form_valid(self, form):

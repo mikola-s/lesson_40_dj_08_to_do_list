@@ -1,4 +1,8 @@
 <form class="form-inline my-2 my-lg-0">
-    <input name="text" id="id_text" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+
+    {% load crispy_forms_tags %}
+
+    {{ search_note_form.search|as_crispy_field }}
+
+    <button class="btn btn-outline-secondary mx-2 my-2 my-sm-0" type="submit">Search</button>
 </form>
