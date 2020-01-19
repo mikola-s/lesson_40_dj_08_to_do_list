@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, TemplateView, LogoutView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import FormView
 
@@ -17,7 +17,7 @@ class Index(ListView):
     http_method_names = ['get', 'post']
     model = models.Note
     context_object_name = 'notes'
-    paginate_by = 3
+    paginate_by = 10
     ordering = '-post_time'
 
     def get_queryset(self):
@@ -32,6 +32,7 @@ class Index(ListView):
 
         context.update({'create_note_form': forms.CreateNoteForm,
                         'search_note_form': forms.SearchNoteForm(self.request.GET),
+                        'update_note_status': forms.UpdateNoteStatusForm,
                         })
         return context
 
@@ -81,3 +82,10 @@ class SearchNote(FormView):
     form_class = forms.Note
     http_method_names = ['get']
     template_name = 'todo/index.html'
+
+
+class UpdateNoteStatus(UpdateView):
+    form_class = forms.UpdateNoteStatusForm
+    model = models.Note
+    template_name = 'todo/update_note_status.html'
+    success_url = '/'

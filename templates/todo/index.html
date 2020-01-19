@@ -16,7 +16,7 @@
             <tr>
                 <th scope="col">time of creation</th>
                 <th scope="col">Text</th>
-                <th scope="col">Share</th>
+                <th scope="col">Status</th>
                 <th scope="col">Delete</th>
             </tr>
             </thead>
@@ -32,7 +32,10 @@
                 <tr>
                     <td scope="row">{{ note.post_time|date:"H:i:s - d.m.Y" }}</td>
                     <td>{{ note.text }}</td>
-                    <td>S</td>
+                    <td class="">
+                        {# ---------- статус заметки ------------------ #}
+                        {% include 'todo/update_note_status_form.html' %}
+                    </td>
                     <td>
                         {# ---------- форма удаления заметки ------------------ #}
                         {% include 'todo/delete_note_form.html' %}

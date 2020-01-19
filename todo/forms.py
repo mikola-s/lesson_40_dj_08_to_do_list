@@ -16,3 +16,11 @@ class SearchNoteForm(forms.Form):
         label='',
         widget=forms.TextInput(attrs={'placeholder': 'Search'})
     )
+
+
+class UpdateNoteStatusForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['status']
+        labels = {'status': ''}
+
