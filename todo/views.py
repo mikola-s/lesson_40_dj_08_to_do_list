@@ -17,7 +17,7 @@ class Index(ListView):
     http_method_names = ['get', 'post']
     model = models.Note
     context_object_name = 'notes'
-    paginate_by = 10
+    paginate_by = 3
     ordering = '-post_time'
 
     def get_queryset(self):

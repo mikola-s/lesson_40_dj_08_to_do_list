@@ -33,7 +33,7 @@ li {
     padding: 40px 50px 50px;
 }
 
-.active {
+.nav-link.active {
     border-bottom: 4px solid #149ee6;
 }
 
@@ -64,4 +64,13 @@ em {
 
 .navbar-text {
     font-size: 20px;
+}
+
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #007bff;
+    background-color: white;
+    border-color: #007bff;
+    border-width: 2px;
 }

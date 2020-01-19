@@ -2,7 +2,10 @@
 
 {% load crispy_forms_tags %}
 
+
 {% block content %}
+
+
 
     {% if user.is_authenticated %}
 
@@ -52,6 +55,9 @@
             to see the contents
         </p>
     {% endif %}
+
+
+{% include 'todo/index_page_navigator.html' %}
 
 
 {% endblock content %}

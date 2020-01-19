@@ -7,6 +7,7 @@ class Note(models.Model):
     text = models.TextField(max_length=200)
     post_time = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
 
     def __str__(self):
         text = self.text if len(self.text) < 30 else self.text[:19:]

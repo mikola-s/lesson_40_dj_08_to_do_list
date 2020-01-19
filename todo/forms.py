@@ -10,4 +10,9 @@ class CreateNoteForm(ModelForm):
 
 
 class SearchNoteForm(forms.Form):
-    search = forms.CharField(max_length=256, required=False, label='', empty_value='Search')
+    search = forms.CharField(
+        max_length=256,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Search'})
+    )
