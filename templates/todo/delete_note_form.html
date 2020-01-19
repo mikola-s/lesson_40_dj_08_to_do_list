@@ -1,6 +1,6 @@
 <form action="{% url 'todo:delete_note' note.pk %}" method="post" class="text-center my-auto">
     {% csrf_token %}
     <div>
-    <button type="submit" class="btn btn-outline-secondary">X</button>
+        <button type="submit" class="btn btn-outline-secondary">X</button>
     </div>
 </form>

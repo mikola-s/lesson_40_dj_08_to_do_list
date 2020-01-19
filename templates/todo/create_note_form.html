@@ -1,4 +1,3 @@
-{# -------- форма создания заметки --------- #}
 <form action="{% url 'todo:create_note' %}" method="post" class="form mx-auto">
     {% csrf_token %}
     <div id="div_id_text" class="form-group">

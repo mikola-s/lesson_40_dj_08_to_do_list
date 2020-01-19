@@ -1,5 +1,4 @@
 {% extends 'todo/base.html' %}
-
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -7,13 +6,11 @@
     <form method="post" class="form col-md-6 col-sm-6 col-12 mx-auto">
 
         {% csrf_token %}
-
         {{ form|crispy }}
 
         <div class="text-right">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
-
 
 {% endblock content %}

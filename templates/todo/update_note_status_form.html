@@ -1,14 +1,23 @@
 <form action="{% url 'todo:update_note_status' note.pk %}" method="post" class="text-center">
+
     {% csrf_token %}
+
+    <input type="hidden" name="success_url" value="{{ request.get_full_path }}">
+
     {% if note.status %}
-            </div>
-                <input hidden type="checkbox" name="status" id="id_status">
-                <button type="submit" class="btn btn-outline-success">Private it</button>
-            </div>
+
+        </div>
+            <input hidden type="checkbox" name="status" id="id_status">
+            <button type="submit" class="btn btn-outline-success">Private it</button>
+        </div>
+
     {% else %}
-            </div>
-                <input hidden type="checkbox" name="status" id="id_status" checked="checked">
-                <button type="submit" class="btn btn-outline-warning">Share it</button>
-            </div>
+
+        </div>
+            <input hidden type="checkbox" name="status" id="id_status" checked="checked">
+            <button type="submit" class="btn btn-outline-warning">Public it</button>
+        </div>
+
     {% endif %}
+
 </form>

@@ -10,9 +10,18 @@ from . import models
 from . import forms
 
 
-# Create your views here.
+class SearchNoteFormMixin:
+    """ for classes Index, PublicNoteList """
 
-class Index(ListView):
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context.update({
+            'search_note_form': forms.SearchNoteForm(self.request.GET),
+        })
+        return context
+
+
+class Index(SearchNoteFormMixin, ListView):
     template_name = 'todo/index.html'
     http_method_names = ['get', 'post']
     model = models.Note
@@ -31,10 +40,25 @@ class Index(ListView):
         context = super().get_context_data(object_list=None, **kwargs)
 
         context.update({'create_note_form': forms.CreateNoteForm,
-                        'search_note_form': forms.SearchNoteForm(self.request.GET),
                         'update_note_status': forms.UpdateNoteStatusForm,
                         })
         return context
+
+
+class PublicNoteList(SearchNoteFormMixin, ListView):
+    template_name = 'todo/public_note_list.html'
+    http_method_names = ['get', 'post']
+    model = models.Note
+    context_object_name = 'notes'
+    paginate_by = 10
+    ordering = '-post_time'
+    queryset = model.objects.filter(status=True)
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        search = self.request.GET.get('search')
+        qs = qs.filter(text__contains=search) if search else qs
+        return qs
 
 
 class CreateUser(CreateView):
@@ -89,3 +113,8 @@ class UpdateNoteStatus(UpdateView):
     model = models.Note
     template_name = 'todo/update_note_status.html'
     success_url = '/'
+
+    def get_success_url(self):
+        url = super().get_success_url()
+        success_url = self.request.POST.get('success_url')
+        return success_url if success_url else url

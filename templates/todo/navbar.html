@@ -5,9 +5,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'todo:index' %}">Home</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'todo:public_note_list' %}">Public notes</a>
+            </li>
         </ul>
 
         <ul class="navbar-nav pl-0 pb-0 mt-2" style="height: 50px">
+
             {% if not user.is_authenticated %}
 
                 <p class="navbar-text mx-2" id="nav-text">Hello Guest</p>
